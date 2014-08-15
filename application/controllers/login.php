@@ -1,4 +1,5 @@
 <?php
+
 if (!defined('BASEPATH'))
     exit('No direct script access allowed');
 
@@ -58,10 +59,15 @@ class Login extends CI_Controller {
             $path_attachment = array();
             $mail_hostdime = 'vicecalidad@umb.edu.co';
 
-            send_mail($mails_destinations, $subject, $message, $path_attachment, $mail_hostdime);
-            
-            $this->session->set_flashdata(array('message' => 'Su PIN a sido enviado al correo electronico '.$user[0]->USUARIO_CORREO.', por favor revise la carpeta de Spam ya que hotmail y/o otros puede poner nuestro email en esta carpeta de Spam', 'message_type' => 'danger'));
-            redirect('', 'refresh');            
+            $return_mail = send_mail($mails_destinations, $subject, $message, $path_attachment, $mail_hostdime);
+            //echo $return_mail;
+            if($return_mail==1){
+                $this->session->set_flashdata(array('message' => 'Su PIN a sido enviado al correo electronico '.$user[0]->USUARIO_CORREO.', por favor revise la carpeta de Spam ya que hotmail y/o otros puede poner nuestro email en esta carpeta de Spam', 'message_type' => 'info'));
+                redirect('', 'refresh');
+            }else{
+                $this->session->set_flashdata(array('message' => 'Error al ', 'message_type' => 'danger'));
+                redirect('', 'refresh');                
+            }
         } else {
             $this->session->set_flashdata(array('message' => 'Error al consultar el registro, por favor intente nuevamente', 'message_type' => 'warning'));
             redirect('login/remember_pin', 'refresh');
@@ -80,9 +86,7 @@ class Login extends CI_Controller {
     public function verify() {
         $username = $this->input->post('username');
         $pass = strip_tags(utf8_decode($this->input->post('password')));
-        
         $user = $this->user_model->get_user_documento($username);
-        
         $user_loginpin = $this->user_model->get_user_loginpin($username, $pass);
 
         if (sizeof($user) > 0) {

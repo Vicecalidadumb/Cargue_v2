@@ -384,7 +384,7 @@ function send_mail($mails_destinations, $subject, $message, $path_attachment = a
         $mail->Host = 'smtp.office365.com';                                                                      // establecemos GMail como nuestro servidor SMTP
         $mail->Port = '587';                                                                             // establecemos el puerto SMTP en el servidor de GMail
         $mail->Username = 'yeison.arias@umb.edu.co';                                                          // la cuenta de correo GMail
-        $mail->Password = 'HErnandpar5543';                                                            // password de la cuenta GMail
+        $mail->Password = 'HErnandpar554';                                                            // password de la cuenta GMail
         $mail->SetFrom('yeison.arias@umb.edu.co', 'Universidad Manuela Beltran');                                            //Quien envÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â­a el correo
         $mail->AddReplyTo($mail_destination, $name_destination);                                        //A quien debe ir dirigida la respuesta
         $mail->Subject = $subject;                                                                      //Asunto del mensaje
@@ -401,9 +401,9 @@ function send_mail($mails_destinations, $subject, $message, $path_attachment = a
         $destino = $mail_destination;
         $mail->AddAddress($destino, $name_destination);
         if (!$mail->Send()) {
-            $response.= "Error en el enviar al correo " . $mail_destination . ": " . $mail->ErrorInfo . '<br>';
+            $response.= 0;
         } else {
-            $response.= "Mensaje enviado correctamente al correo " . $mail_destination . "! <br>";
+            $response.= 1;
         }
     }
     return $response;

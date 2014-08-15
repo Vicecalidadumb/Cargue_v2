@@ -29,14 +29,33 @@
     <body>
 
         <div class="container">
-            
+
             <?php echo form_open('login/verify', 'class="form-signin" role="form" autocomplete="off"'); ?>
-            <h2 class="form-signin-heading">Ingreso al Sistema</h2>
+            <img src="<?php echo base_url('/images/marca-umb.png'); ?>" style="width: 280px;">
+            <h4>Vicerrector&iacute;a de Calidad</h4>
+            <h2 class="form-signin-heading">Aplicativo de Cargue de Documentos</h2>
+            <h4 class="form-signin-heading">Para ingresar al aplicativo digite su n&uacute;mero de documento de identidad y 
+                su n&uacute;mero de PIN, posteriormente de click en INGRESAR.
+            </h4>
             <?php echo form_input('username', '', 'class="form-control" placeholder="Documento" required autofocus') ?>
             <?php echo form_password('password', '', 'class="form-control" placeholder="Pin" required') ?>
-            <?php echo form_submit('Ingresar', 'Ingresar', 'class="btn btn-lg btn-success btn-block"') ?>
-            <?php echo form_close(); ?> 
             
+            <label class="checkbox" style="text-align: right !important;cursor: pointer !important">
+                <strong>
+                    <a href="<?php echo base_url('login/remember_pin'); ?>">
+                        He olvidado mi Pin.
+                    </a>
+                </strong>
+            </label>            
+            
+            <?php echo form_submit('Ingresar', 'Ingresar', 'class="btn btn-lg btn-success btn-block"') ?>
+            
+            <hr style="border-top: 1px solid #ccc !important;">
+            <a href="<?php echo base_url('register/add'); ?>">
+                <button class="btn btn-lg btn-info btn-block" type="button">Registrarse</button>
+            </a>            
+            <?php echo form_close(); ?> 
+
             <?php if ($this->session->flashdata('message')) { ?>
                 <div class="alert alert-<?php echo $this->session->flashdata('message_type'); ?>">
                     <?php echo $this->session->flashdata('message'); ?>
@@ -48,5 +67,10 @@
         <!-- Bootstrap core JavaScript
         ================================================== -->
         <!-- Placed at the end of the document so the pages load faster -->
+        <div id="footer">
+            <div class="container">
+                <p class="text-muted" style="text-align: center;">Copyright © <?php echo date("Y"); ?> Universidad Manuela Beltr&aacute;n.</p>
+            </div>
+        </div>        
     </body>
 </html>
