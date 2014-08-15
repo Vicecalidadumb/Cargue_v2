@@ -1,5 +1,46 @@
 <?php
 
+function recalculate_uploaded_documents() {
+    $TIPO_DOCUMENTO_ID_1 = 0;
+    $TIPO_DOCUMENTO_ID_2 = 0;
+    $TIPO_DOCUMENTO_ID_3 = 0;
+    $TIPO_DOCUMENTO_ID_4 = 0;
+    $TIPO_DOCUMENTO_ID_TOTAL = 0;
+    
+    $CI = & get_instance();
+    $CI->load->model('particles_model');
+    $documents = $CI->particles_model->get_documents_user($CI->session->userdata("INSCRIPCION_PIN"));
+    //echo '<pre>' . print_y($documents, true) . '</pre>';
+    
+    foreach ($documents as $document) {
+        //echo $document->TIPO_DOCUMENTO_ID.'<br>';
+        switch ($document->TIPO_DOCUMENTO_ID) {
+            case 1:
+                $TIPO_DOCUMENTO_ID_1++;
+                $TIPO_DOCUMENTO_ID_TOTAL++;
+                break;
+            case 2:
+                $TIPO_DOCUMENTO_ID_1++;
+                $TIPO_DOCUMENTO_ID_TOTAL++;
+                break;
+            case 3:
+                $TIPO_DOCUMENTO_ID_1++;
+                $TIPO_DOCUMENTO_ID_TOTAL++;
+                break;
+            case 4:
+                $TIPO_DOCUMENTO_ID_1++;
+                $TIPO_DOCUMENTO_ID_TOTAL++;
+                break;            
+        }
+    }
+    
+    $CI->session->set_userdata('TIPO_DOCUMENTO_ID_1', $TIPO_DOCUMENTO_ID_1);
+    $CI->session->set_userdata('TIPO_DOCUMENTO_ID_2', $TIPO_DOCUMENTO_ID_2);
+    $CI->session->set_userdata('TIPO_DOCUMENTO_ID_3', $TIPO_DOCUMENTO_ID_3);
+    $CI->session->set_userdata('TIPO_DOCUMENTO_ID_4', $TIPO_DOCUMENTO_ID_4);
+    $CI->session->set_userdata('TIPO_DOCUMENTO_ID_TOTAL', $TIPO_DOCUMENTO_ID_TOTAL);
+}
+
 function print_y($array) {
     return '<pre>' . print_r($array, true) . '</pre>';
 }
@@ -362,21 +403,20 @@ function send_mail($mails_destinations, $subject, $message, $path_attachment = a
     $CI->load->library('My_PHPMailer');
 
     //$result = $sql_query->result();
-
 //CUERPO DEL MENSAJE
     //$message = str_replace(array('[PARA]', '[MENSAJE]', '[EXTRA]'), $message, $result[0]->config_phpmailer_template);
-    
+
 
     $response = '';
     foreach ($mails_destinations as $mail_destination => $name_destination) {
         $mail = new PHPMailer();
-        $mail->IsSMTP(); 
-        /*// establecemos que utilizaremos SMTP
-        if ($result[0]->config_phpmailer_smtpauth == 1) {
-            $mail->SMTPAuth = true;                                                                     // habilitamos la autenticaciÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â³n SMTP
-        } else {
-            $mail->SMTPAuth = false;                                                                    // habilitamos la autenticaciÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â³n SMTP
-        }*/
+        $mail->IsSMTP();
+        /* // establecemos que utilizaremos SMTP
+          if ($result[0]->config_phpmailer_smtpauth == 1) {
+          $mail->SMTPAuth = true;                                                                     // habilitamos la autenticaciÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â³n SMTP
+          } else {
+          $mail->SMTPAuth = false;                                                                    // habilitamos la autenticaciÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â³n SMTP
+          } */
         $mail->SMTPAuth = true;
         $mail->Mailer = "smtp";
         //$mail->SMTPSecure = "{$result[0]->config_phpmailer_smtpsecure}";                              // establecemos el prefijo del protocolo seguro de comunicaciÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â³n con el servidor

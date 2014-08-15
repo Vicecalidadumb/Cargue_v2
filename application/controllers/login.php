@@ -118,7 +118,12 @@ class Login extends CI_Controller {
                     'ID_TIPO_USU' => $user_loginpin[0]->ID_TIPO_USU,
                     'rol_permissions' => $rol_permissions,
                     'logged_in' => TRUE,
-                    'politicas' => FALSE
+                    'politicas' => FALSE,
+                    'TIPO_DOCUMENTO_ID_1' => 0,
+                    'TIPO_DOCUMENTO_ID_2' => 0,
+                    'TIPO_DOCUMENTO_ID_3' => 0,
+                    'TIPO_DOCUMENTO_ID_4' => 0,
+                    'TIPO_DOCUMENTO_ID_TOTAL' => 0
                 );
                 //echo print_r($newdata,true);
 
